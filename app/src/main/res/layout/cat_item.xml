@@ -26,5 +26,17 @@
             tools:srcCompat="@tools:sample/avatars"
             tools:ignore="ContentDescription" />
 
+        <!--<ImageButton
+            android:id="@+id/buttonFavorite"
+            android:layout_width="54dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_base_favorite_24"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />-->
+
     </androidx.cardview.widget.CardView>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -7,7 +7,4 @@
         android:icon="@drawable/ic_baseline_devices_24_white"
         android:title="@string/save"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/favorite_button"
-        android:title="@string/favorites" />
 </menu>
