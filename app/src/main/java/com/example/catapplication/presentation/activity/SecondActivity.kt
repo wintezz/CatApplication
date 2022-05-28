@@ -5,11 +5,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catapplication.MainApp
-import com.example.catapplication.R
 import com.example.catapplication.databinding.ActivitySecondBinding
 import com.example.catapplication.domain.CatViewModel
 import com.example.catapplication.presentation.adapter.FavoriteAdapter
-import com.example.catapplication.repository.Cat
 
 class SecondActivity : AppCompatActivity() {
 
@@ -17,21 +15,22 @@ class SecondActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySecondBinding
 
     private val catViewModel: CatViewModel by viewModels {
-        CatViewModel.MainViewModelFactory((applicationContext as MainApp).database)
+        CatViewModel.MainViewModelFactory((applicationContext as MainApp).dataBase)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initRcView()
+        initRecyclerView()
         observer()
     }
 
-    private fun initRcView() = with(binding) {
-        recyclerView2.layoutManager = LinearLayoutManager(this@SecondActivity)
+    private fun initRecyclerView() = with(binding) {
+        recyclerFavorite.layoutManager = LinearLayoutManager(this@SecondActivity)
         adapter = FavoriteAdapter()
-        recyclerView2.adapter = adapter
+        recyclerFavorite.adapter = adapter
     }
 
     private fun observer() {

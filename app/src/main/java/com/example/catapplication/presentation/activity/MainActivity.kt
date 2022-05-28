@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.cat_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.id_save -> {

@@ -28,7 +28,7 @@ class CatViewModel(database: MainDataBase) : ViewModel() {
 
     ).flow.cachedIn(viewModelScope)
 
-
+    // DataBase
     val dao = database.getDao()
 
     val getFavoriteItem:LiveData<List<FavoriteItem>> = dao.getAllFavoriteItems().asLiveData()

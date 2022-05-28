@@ -35,7 +35,6 @@ class CatInfoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             parameter = it.getString(CAT_URL).toString()
-
         }
     }
 

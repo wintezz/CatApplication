@@ -2,8 +2,8 @@ package com.example.catapplication.presentation.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.catapplication.repository.retrofit.entity.CatApiService
 import com.example.catapplication.repository.Cat
+import com.example.catapplication.repository.retrofit.entity.CatApiService
 import retrofit2.HttpException
 import java.io.IOException
 

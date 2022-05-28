@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
     private var binding: FragmentMainBinding? = null
     private val catBinding get() = binding!!
     private val catViewModel: CatViewModel by activityViewModels {
-        CatViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
+        CatViewModel.MainViewModelFactory((context?.applicationContext as MainApp).dataBase)
     }
 
     override fun onCreateView(
@@ -53,11 +53,11 @@ class MainFragment : Fragment() {
             }
 
             override fun openSecondActivity(parameter1: String, parameter2: String) {
-                val xui = FavoriteItem(
+                val addUrl = FavoriteItem(
                     null,
                     parameter1
                 )
-                catViewModel.insertFavoriteItem(xui)
+                catViewModel.insertFavoriteItem(addUrl)
             }
         })
 
@@ -73,7 +73,6 @@ class MainFragment : Fragment() {
         lifecycleScope.launch {
             catViewModel.catList.collectLatest {
                 itemAdapter.submitData(it)
-
             }
         }
     }

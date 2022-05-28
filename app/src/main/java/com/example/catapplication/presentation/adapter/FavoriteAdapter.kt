@@ -3,17 +3,17 @@ package com.example.catapplication.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.catapplication.R
 import com.example.catapplication.databinding.CatItemBinding
 import com.example.catapplication.presentation.db.entityes.FavoriteItem
+import com.example.catapplication.presentation.util.DiffUtilFavoriteAdapter
 
-class FavoriteAdapter(
-) : ListAdapter<FavoriteItem, FavoriteAdapter.ItemHolder>(ItemComparator()) {
+class FavoriteAdapter:
+    ListAdapter<FavoriteItem, FavoriteAdapter.ItemHolder>(DiffUtilFavoriteAdapter()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder.create(parent)
     }
@@ -38,19 +38,4 @@ class FavoriteAdapter(
         }
     }
 
-    class ItemComparator : DiffUtil.ItemCallback<FavoriteItem>() {
-        override fun areItemsTheSame(
-            oldItem: FavoriteItem,
-            newItem: FavoriteItem
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(
-            oldItem: FavoriteItem,
-            newItem: FavoriteItem
-        ): Boolean {
-            return oldItem == newItem
-        }
-    }
 }

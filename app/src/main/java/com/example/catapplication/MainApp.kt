@@ -4,5 +4,6 @@ import android.app.Application
 import com.example.catapplication.presentation.db.MainDataBase
 
 class MainApp: Application(){
-    val database by lazy { MainDataBase.getDataBase(this)}
+
+    val dataBase by lazy { MainDataBase.getDataBase(this)}
 }
