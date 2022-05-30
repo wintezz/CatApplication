@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.catapplication.MainApp
+import com.example.catapplication.domain.application.MainApp
 import com.example.catapplication.databinding.ActivitySecondBinding
-import com.example.catapplication.domain.CatViewModel
+import com.example.catapplication.presentation.model.CatViewModel
 import com.example.catapplication.presentation.adapter.FavoriteAdapter
 
 class SecondActivity : AppCompatActivity() {

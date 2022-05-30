@@ -1,6 +1,5 @@
-package com.example.catapplication.repository.retrofit.entity
+package com.example.catapplication.data.remote
 
-import com.example.catapplication.repository.Cat
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

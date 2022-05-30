@@ -1,4 +1,4 @@
-package com.example.catapplication.presentation.db.entityes
+package com.example.catapplication.data.db.entityes
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

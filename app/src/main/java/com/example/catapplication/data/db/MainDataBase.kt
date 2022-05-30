@@ -1,10 +1,10 @@
-package com.example.catapplication.presentation.db
+package com.example.catapplication.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.catapplication.presentation.db.entityes.FavoriteItem
+import com.example.catapplication.data.db.entityes.FavoriteItem
 
 @Database(entities = [FavoriteItem::class], version = 1)
 abstract class MainDataBase : RoomDatabase() {

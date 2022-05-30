@@ -1,10 +1,10 @@
-package com.example.catapplication.presentation.db
+package com.example.catapplication.data.db
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.catapplication.presentation.db.entityes.FavoriteItem
+import com.example.catapplication.data.db.entityes.FavoriteItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao

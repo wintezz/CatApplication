@@ -1,7 +1,7 @@
-package com.example.catapplication.presentation.util
+package com.example.catapplication.domain.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.catapplication.repository.Cat
+import com.example.catapplication.data.remote.Cat
 
 class DiffUtilCallBack : DiffUtil.ItemCallback<Cat>() {
     override fun areItemsTheSame(oldItem: Cat, newItem: Cat): Boolean {

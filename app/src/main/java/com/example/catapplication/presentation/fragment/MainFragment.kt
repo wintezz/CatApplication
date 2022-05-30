@@ -10,13 +10,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.catapplication.MainApp
+import com.example.catapplication.domain.application.MainApp
 import com.example.catapplication.R
 import com.example.catapplication.databinding.FragmentMainBinding
-import com.example.catapplication.domain.CatViewModel
+import com.example.catapplication.presentation.model.CatViewModel
 import com.example.catapplication.presentation.adapter.CatAdapter
-import com.example.catapplication.presentation.db.entityes.FavoriteItem
-import com.example.catapplication.presentation.interfaces.Navigator
+import com.example.catapplication.data.db.entityes.FavoriteItem
+import com.example.catapplication.domain.interfaces.Navigator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

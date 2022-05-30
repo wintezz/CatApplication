@@ -1,16 +1,16 @@
-package com.example.catapplication.domain
+package com.example.catapplication.presentation.model
 
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.catapplication.presentation.adapter.CatPaging
-import com.example.catapplication.presentation.db.MainDataBase
-import com.example.catapplication.presentation.db.entityes.FavoriteItem
-import com.example.catapplication.repository.Cat
-import com.example.catapplication.repository.retrofit.RetrofitFactory
-import com.example.catapplication.repository.retrofit.entity.CatApiService
+import com.example.catapplication.domain.paging.CatPaging
+import com.example.catapplication.data.db.MainDataBase
+import com.example.catapplication.data.db.entityes.FavoriteItem
+import com.example.catapplication.data.remote.Cat
+import com.example.catapplication.data.remote.RetrofitFactory
+import com.example.catapplication.data.remote.CatApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

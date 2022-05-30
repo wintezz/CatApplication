@@ -1,7 +1,7 @@
-package com.example.catapplication.presentation.util
+package com.example.catapplication.domain.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.catapplication.presentation.db.entityes.FavoriteItem
+import com.example.catapplication.data.db.entityes.FavoriteItem
 
 class DiffUtilFavoriteAdapter : DiffUtil.ItemCallback<FavoriteItem>() {
     override fun areItemsTheSame(

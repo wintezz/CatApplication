@@ -18,8 +18,8 @@ import coil.Coil
 import coil.load
 import coil.request.ImageRequest
 import com.example.catapplication.databinding.FragmentCatInfoBinding
-import com.example.catapplication.repository.retrofit.entity.CatApiService.Companion.CAT_ID
-import com.example.catapplication.repository.retrofit.entity.CatApiService.Companion.CAT_URL
+import com.example.catapplication.data.remote.CatApiService.Companion.CAT_ID
+import com.example.catapplication.data.remote.CatApiService.Companion.CAT_URL
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream

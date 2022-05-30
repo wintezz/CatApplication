@@ -1,7 +1,7 @@
-package com.example.catapplication
+package com.example.catapplication.domain.application
 
 import android.app.Application
-import com.example.catapplication.presentation.db.MainDataBase
+import com.example.catapplication.data.db.MainDataBase
 
 class MainApp : Application() {
 
