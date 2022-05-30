@@ -17,9 +17,9 @@ import androidx.lifecycle.lifecycleScope
 import coil.Coil
 import coil.load
 import coil.request.ImageRequest
+import com.example.catapplication.databinding.FragmentCatInfoBinding
 import com.example.catapplication.repository.retrofit.entity.CatApiService.Companion.CAT_ID
 import com.example.catapplication.repository.retrofit.entity.CatApiService.Companion.CAT_URL
-import com.example.catapplication.databinding.FragmentCatInfoBinding
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -88,7 +88,6 @@ class CatInfoFragment : Fragment() {
 
                 val imageUri: Uri? =
                     resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-
                 fos = imageUri?.let { resolver.openOutputStream(it) }
             }
 
@@ -111,7 +110,6 @@ class CatInfoFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance(parameter1: String, parameter2: String) =
             CatInfoFragment().apply {

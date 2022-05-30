@@ -29,9 +29,9 @@ class CatViewModel(database: MainDataBase) : ViewModel() {
     ).flow.cachedIn(viewModelScope)
 
     // DataBase
-    val dao = database.getDao()
+    private val dao = database.getDao()
 
-    val getFavoriteItem:LiveData<List<FavoriteItem>> = dao.getAllFavoriteItems().asLiveData()
+    val getFavoriteItem: LiveData<List<FavoriteItem>> = dao.getAllFavoriteItems().asLiveData()
 
     fun insertFavoriteItem(favoriteItem: FavoriteItem) = viewModelScope.launch {
         dao.insertFavorite(favoriteItem)
@@ -41,9 +41,9 @@ class CatViewModel(database: MainDataBase) : ViewModel() {
         dao.deleteFavorite(favoriteItem)
     }
 
-    class MainViewModelFactory(private val database: MainDataBase): ViewModelProvider.Factory{
+    class MainViewModelFactory(private val database: MainDataBase) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(CatViewModel::class.java)){
+            if (modelClass.isAssignableFrom(CatViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return CatViewModel(database) as T
             }

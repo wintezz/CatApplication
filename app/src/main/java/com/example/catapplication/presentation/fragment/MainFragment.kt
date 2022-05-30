@@ -90,7 +90,6 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance(listCat: ArrayList<String>) =
             CatInfoFragment().apply {

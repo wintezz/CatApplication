@@ -11,7 +11,7 @@ import com.example.catapplication.databinding.CatItemBinding
 import com.example.catapplication.presentation.db.entityes.FavoriteItem
 import com.example.catapplication.presentation.util.DiffUtilFavoriteAdapter
 
-class FavoriteAdapter:
+class FavoriteAdapter :
     ListAdapter<FavoriteItem, FavoriteAdapter.ItemHolder>(DiffUtilFavoriteAdapter()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -37,5 +37,4 @@ class FavoriteAdapter:
             }
         }
     }
-
 }

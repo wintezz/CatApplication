@@ -7,15 +7,16 @@ import androidx.room.RoomDatabase
 import com.example.catapplication.presentation.db.entityes.FavoriteItem
 
 @Database(entities = [FavoriteItem::class], version = 1)
-abstract class MainDataBase: RoomDatabase() {
+abstract class MainDataBase : RoomDatabase() {
     abstract fun getDao(): Dao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: MainDataBase? = null
         fun getDataBase(context: Context): MainDataBase {
-            return INSTANCE ?: synchronized(this){
-                val instance = Room.databaseBuilder(context.applicationContext,
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
                     MainDataBase::class.java,
                     "favorite_list.db"
                 ).build()
