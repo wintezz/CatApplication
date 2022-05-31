@@ -9,7 +9,7 @@ import coil.load
 import com.example.catapplication.R
 import com.example.catapplication.databinding.CatItemBinding
 import com.example.catapplication.data.db.entityes.FavoriteItem
-import com.example.catapplication.domain.util.DiffUtilFavoriteAdapter
+import com.example.catapplication.presentation.util.DiffUtilFavoriteAdapter
 
 class FavoriteAdapter :
     ListAdapter<FavoriteItem, FavoriteAdapter.ItemHolder>(DiffUtilFavoriteAdapter()) {

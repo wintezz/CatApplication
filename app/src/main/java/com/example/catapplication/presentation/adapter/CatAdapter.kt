@@ -8,8 +8,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.catapplication.R
-import com.example.catapplication.domain.interfaces.Navigator
-import com.example.catapplication.domain.util.DiffUtilCallBack
+import com.example.catapplication.presentation.interfaces.Navigator
+import com.example.catapplication.presentation.util.DiffUtilCallBack
 import com.example.catapplication.data.remote.Cat
 
 class CatAdapter(

@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.catapplication.domain.paging.CatPaging
+import com.example.catapplication.domain.CatPaging
 import com.example.catapplication.data.db.MainDataBase
 import com.example.catapplication.data.db.entityes.FavoriteItem
 import com.example.catapplication.data.remote.Cat

@@ -1,4 +1,4 @@
-package com.example.catapplication.domain.util
+package com.example.catapplication.presentation.util
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.catapplication.data.remote.Cat

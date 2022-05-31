@@ -1,4 +1,4 @@
-package com.example.catapplication.domain.application
+package com.example.catapplication
 
 import android.app.Application
 import com.example.catapplication.data.db.MainDataBase
