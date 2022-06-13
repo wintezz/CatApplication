@@ -19,6 +19,7 @@ interface CatApiService {
         const val API_KEY = "8cc12c9e-a406-4489-a189-0ef201b10714"
         const val CAT_URL = "url"
         const val CAT_ID = "id"
+        const val CAT_EXTRA = "cat_extra"
     }
 }
 

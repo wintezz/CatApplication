@@ -15,7 +15,7 @@ class SecondActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySecondBinding
 
     private val catViewModel: CatViewModel by viewModels {
-        CatViewModel.MainViewModelFactory((applicationContext as MainApp).dataBase)
+        CatViewModel.MainViewModelFactory(MainApp.dataBase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

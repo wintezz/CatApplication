@@ -17,9 +17,9 @@ import androidx.lifecycle.lifecycleScope
 import coil.Coil
 import coil.load
 import coil.request.ImageRequest
+import com.example.catapplication.data.remote.CatApiService.Companion.CAT_EXTRA
 import com.example.catapplication.databinding.FragmentCatInfoBinding
-import com.example.catapplication.data.remote.CatApiService.Companion.CAT_ID
-import com.example.catapplication.data.remote.CatApiService.Companion.CAT_URL
+import com.example.catapplication.presentation.models.CatUiModel
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -27,16 +27,9 @@ import java.io.OutputStream
 
 class CatInfoFragment : Fragment() {
 
-    private var parameter: String = ""
+    private val cat: CatUiModel? by lazy { arguments?.getParcelable(CAT_EXTRA) }
     private var binding: FragmentCatInfoBinding? = null
     private val catBinding get() = binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            parameter = it.getString(CAT_URL).toString()
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,17 +44,18 @@ class CatInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(catBinding) {
-            imageCat.load(parameter)
-            saveCatButton.setOnClickListener { getImageAndSave(parameter) }
-            backInGalleryButton.setOnClickListener { activity?.onBackPressed() }
-
+            cat?.let { cat ->
+                imageCat.load(cat.imageUrl)
+                saveCatButton.setOnClickListener { getImageAndSave(cat.imageUrl) }
+                backInGalleryButton.setOnClickListener { activity?.onBackPressed() }
+            }
         }
     }
 
     private fun getImageAndSave(bitmapURL: String) = lifecycleScope.launch {
         val imageLoader = Coil.imageLoader(requireContext())
         val request = ImageRequest.Builder(requireContext())
-            .data(parameter)
+            .data(bitmapURL)
             .build()
 
         try {
@@ -111,11 +105,10 @@ class CatInfoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(parameter1: String, parameter2: String) =
+        fun newInstance(cat: CatUiModel) =
             CatInfoFragment().apply {
                 arguments = Bundle().apply {
-                    putString(CAT_URL, parameter1)
-                    putString(CAT_ID, parameter2)
+                    putParcelable(CAT_EXTRA, cat)
                 }
             }
     }

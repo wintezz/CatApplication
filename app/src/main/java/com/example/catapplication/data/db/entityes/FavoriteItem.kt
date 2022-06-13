@@ -10,5 +10,7 @@ data class FavoriteItem(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     @ColumnInfo(name = "url_image")
-    val image: String
+    val image: String,
+    @ColumnInfo(name = "cat_id")
+    val catId: String
 )

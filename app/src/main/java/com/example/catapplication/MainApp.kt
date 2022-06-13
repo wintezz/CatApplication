@@ -5,5 +5,13 @@ import com.example.catapplication.data.db.MainDataBase
 
 class MainApp : Application() {
 
-    val dataBase by lazy { MainDataBase.getDataBase(this) }
+    companion object {
+        private var _dataBase: MainDataBase? = null
+        val dataBase by lazy { _dataBase!! }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        _dataBase = MainDataBase.getDataBase(this)
+    }
 }

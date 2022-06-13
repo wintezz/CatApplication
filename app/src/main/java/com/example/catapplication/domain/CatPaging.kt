@@ -4,13 +4,14 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.catapplication.data.remote.Cat
 import com.example.catapplication.data.remote.CatApiService
+import com.example.catapplication.presentation.models.CatUiModel
 import retrofit2.HttpException
 import java.io.IOException
 
 class CatPaging(
     private val myBackend: CatApiService,
-) : PagingSource<Int, Cat>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Cat> = try {
+) : PagingSource<Int, CatUiModel>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CatUiModel> = try {
 
         val pageNumber = params.key ?: 0
         val response = myBackend.getListOfCats(page = pageNumber)
@@ -19,7 +20,7 @@ class CatPaging(
         val nextKey = if (response.isNotEmpty()) pageNumber + 1 else null
 
         LoadResult.Page(
-            data = response,
+            data = response.mapNotNull { it.toUiModel() },
             prevKey = prevKey,
             nextKey = nextKey
         )
@@ -30,7 +31,7 @@ class CatPaging(
         LoadResult.Error(e)
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Cat>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, CatUiModel>): Int? {
         return state.anchorPosition
     }
 }

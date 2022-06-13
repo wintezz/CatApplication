@@ -3,18 +3,19 @@ package com.example.catapplication.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.catapplication.R
-import com.example.catapplication.presentation.interfaces.Navigator
+import com.example.catapplication.presentation.models.CatUiModel
 import com.example.catapplication.presentation.util.DiffUtilCallBack
-import com.example.catapplication.data.remote.Cat
 
 class CatAdapter(
-    private val navigator: Navigator,
-) : PagingDataAdapter<Cat, CatAdapter.CatViewHolder>(DiffUtilCallBack()) {
+    private val clickListener: (CatUiModel) -> Unit,
+    private val favoriteClickListener: (CatUiModel) -> Unit,
+) : PagingDataAdapter<CatUiModel, CatAdapter.CatViewHolder>(DiffUtilCallBack()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -25,26 +26,22 @@ class CatAdapter(
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
-
-        holder.itemView.setOnClickListener {
-            navigator.openCatInfoFragment(getItem(position)?.imageUrl!!, getItem(position)?.id!!)
+        getItem(position)?.let { item ->
+            holder.bind(item)
         }
-
-        /*holder.buttonFavorite.setOnClickListener{
-          navigator.openSecondActivity(getItem(position)?.imageUrl!!, getItem(position)?.id!!)
-        }*/
     }
 
-    class CatViewHolder(
+    inner class CatViewHolder(
         view: View
     ) : RecyclerView.ViewHolder(view) {
 
         private val imageView = view.findViewById<ImageView>(R.id.imageView)
-        // var buttonFavorite = view.findViewById<ImageButton>(R.id.buttonFavorite)
+        private var buttonFavorite = view.findViewById<ImageButton>(R.id.buttonFavorite)
 
-        fun bind(data: Cat) {
+        fun bind(data: CatUiModel) {
             imageView.load(data.imageUrl)
+            itemView.setOnClickListener { clickListener.invoke(data) }
+            buttonFavorite.setOnClickListener { favoriteClickListener.invoke(data) }
         }
     }
 }

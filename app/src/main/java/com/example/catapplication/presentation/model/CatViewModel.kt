@@ -1,54 +1,62 @@
 package com.example.catapplication.presentation.model
 
 import androidx.lifecycle.*
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.catapplication.domain.CatPaging
 import com.example.catapplication.data.db.MainDataBase
 import com.example.catapplication.data.db.entityes.FavoriteItem
-import com.example.catapplication.data.remote.Cat
-import com.example.catapplication.data.remote.RetrofitFactory
-import com.example.catapplication.data.remote.CatApiService
+import com.example.catapplication.domain.CatRepository
+import com.example.catapplication.domain.FavoriteRepository
+import com.example.catapplication.presentation.models.CatUiModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class CatViewModel(database: MainDataBase) : ViewModel() {
 
-    private val apiService: CatApiService = RetrofitFactory.getRetroInstance()
-        .create(CatApiService::class.java)
+    private val repository = CatRepository
+    private val repositoryFavorite = FavoriteRepository
 
-    val catList: Flow<PagingData<Cat>> = Pager(config = PagingConfig(
-        pageSize = CatApiService.DEFAULT_PAGE_SIZE,
-        enablePlaceholders = true,
-        maxSize = 100
-    ),
-        pagingSourceFactory = { CatPaging(apiService) }
-
-    ).flow.cachedIn(viewModelScope)
-
-    // DataBase
-    private val dao = database.getDao()
-
-    val getFavoriteItem: LiveData<List<FavoriteItem>> = dao.getAllFavoriteItems().asLiveData()
-
-    fun insertFavoriteItem(favoriteItem: FavoriteItem) = viewModelScope.launch {
-        dao.insertFavorite(favoriteItem)
+    val catList: Flow<PagingData<CatUiModel>> by lazy {
+        repository.getCats().cachedIn(viewModelScope)
     }
 
-    fun deleteFavoriteItem(favoriteItem: FavoriteItem) = viewModelScope.launch {
-        dao.deleteFavorite(favoriteItem)
+    private val _navigate = MutableLiveData<Navigate>()
+    val navigate: LiveData<Navigate> = _navigate
+
+    val getFavoriteItem: LiveData<List<FavoriteItem>> = repositoryFavorite.getAll().asLiveData()
+
+    fun onItemClick(cat: CatUiModel) {
+        _navigate.value = Navigate.ToDetail(cat)
+    }
+
+    init {
+        getFavoriteItem.value
+    }
+
+    fun onFavoriteItemClick(cat: CatUiModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            getFavoriteItem.value?.let { items ->
+                items.firstOrNull { it.catId == cat.id }?.let { favoriteItem ->
+                    repositoryFavorite.removeFavorite(favoriteItem)
+                } ?: repositoryFavorite.addFavorite(cat)
+            } ?: repositoryFavorite.addFavorite(cat)
+        }
     }
 
     class MainViewModelFactory(private val database: MainDataBase) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CatViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return CatViewModel(database) as T
             }
-            throw IllegalArgumentException("Unknows ViewModelClass")
+            throw IllegalArgumentException("Unknowns ViewModelClass")
         }
+    }
+
+    sealed class Navigate {
+        class ToDetail(val cat: CatUiModel) : Navigate()
+        class Back() : Navigate()
     }
 }
 
