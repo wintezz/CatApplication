@@ -1,7 +1,6 @@
-package com.example.catapplication.presentation.models
+package com.example.catapplication.domain.models
 
 import android.os.Parcelable
-import com.example.catapplication.data.db.entityes.FavoriteItem
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

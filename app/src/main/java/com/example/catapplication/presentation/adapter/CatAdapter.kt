@@ -9,7 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.catapplication.R
-import com.example.catapplication.presentation.models.CatUiModel
+import com.example.catapplication.domain.models.CatUiModel
 import com.example.catapplication.presentation.util.DiffUtilCallBack
 
 class CatAdapter(

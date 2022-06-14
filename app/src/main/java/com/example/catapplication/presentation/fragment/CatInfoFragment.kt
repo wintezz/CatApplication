@@ -19,7 +19,7 @@ import coil.load
 import coil.request.ImageRequest
 import com.example.catapplication.data.remote.CatApiService.Companion.CAT_EXTRA
 import com.example.catapplication.databinding.FragmentCatInfoBinding
-import com.example.catapplication.presentation.models.CatUiModel
+import com.example.catapplication.domain.models.CatUiModel
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream

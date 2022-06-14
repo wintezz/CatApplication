@@ -5,9 +5,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.catapplication.data.db.MainDataBase
 import com.example.catapplication.data.db.entityes.FavoriteItem
-import com.example.catapplication.domain.CatRepository
-import com.example.catapplication.domain.FavoriteRepository
-import com.example.catapplication.presentation.models.CatUiModel
+import com.example.catapplication.data.remote.repository.CatRepository
+import com.example.catapplication.data.db.repository.FavoriteRepository
+import com.example.catapplication.domain.models.CatUiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

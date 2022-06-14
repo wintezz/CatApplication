@@ -1,8 +1,8 @@
-package com.example.catapplication.domain
+package com.example.catapplication.data.db.repository
 
 import com.example.catapplication.MainApp
 import com.example.catapplication.data.db.entityes.FavoriteItem
-import com.example.catapplication.presentation.models.CatUiModel
+import com.example.catapplication.domain.models.CatUiModel
 import kotlinx.coroutines.flow.Flow
 
 object FavoriteRepository {
