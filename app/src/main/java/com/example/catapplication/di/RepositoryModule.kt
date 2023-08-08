@@ -1,0 +1,21 @@
+package com.example.catapplication.di
+
+import com.example.catapplication.data.remote.repository.Repository
+import com.example.catapplication.data.remote.repository.RepositoryImpl
+import com.example.catapplication.data.remote.retrofit.ApiService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object RepositoryModule {
+
+    @Provides
+    @Singleton
+    fun provideRepository(apiService: ApiService): Repository {
+        return RepositoryImpl(apiService)
+    }
+}
