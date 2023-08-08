@@ -4,23 +4,25 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.catapplication.MainApp
-import com.example.catapplication.databinding.ActivitySecondBinding
-import com.example.catapplication.presentation.model.CatViewModel
+import com.example.catApllication.databinding.ActivitySecondBinding
+import com.example.catapplication.CatApplication
 import com.example.catapplication.presentation.adapter.FavoriteAdapter
+import com.example.catapplication.presentation.viewmodel.CatViewModel
 
 class SecondActivity : AppCompatActivity() {
 
     private lateinit var adapter: FavoriteAdapter
-    private lateinit var binding: ActivitySecondBinding
+    private var _binding: ActivitySecondBinding? = null
+    private val binding
+        get() = _binding ?: throw Throwable("SecondActivity binding is not initialized")
 
     private val catViewModel: CatViewModel by viewModels {
-        CatViewModel.MainViewModelFactory(MainApp.dataBase)
+        CatViewModel.MainViewModelFactory(CatApplication.dataBase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySecondBinding.inflate(layoutInflater)
+        _binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initRecyclerView()
@@ -37,5 +39,10 @@ class SecondActivity : AppCompatActivity() {
         catViewModel.getFavoriteItem.observe(this) {
             adapter.submitList(it)
         }
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

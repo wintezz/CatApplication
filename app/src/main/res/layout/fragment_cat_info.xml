@@ -1,48 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/purple_200">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:id="@+id/image_cat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200">
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription"
+        tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/image_cat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:srcCompat="@tools:sample/avatars" />
+    <Button
+        android:id="@+id/save_cat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="59dp"
+        android:layout_gravity="bottom|center"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_cat" />
 
-        <Button
-            android:id="@+id/save_cat_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="59dp"
-            android:text="@string/save_to_gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_cat" />
-
-        <Button
-            android:id="@+id/back_in_gallery_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back_to_list"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save_cat_button" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</FrameLayout>

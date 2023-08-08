@@ -1,6 +1,6 @@
 package com.example.catapplication.domain
 
-import com.example.catapplication.data.remote.Cat
+import com.example.catapplication.data.remote.model.Cat
 import com.example.catapplication.domain.models.CatUiModel
 
 fun Cat.toUiModel(): CatUiModel? {

@@ -3,7 +3,7 @@ package com.example.catapplication
 import android.app.Application
 import com.example.catapplication.data.db.MainDataBase
 
-class MainApp : Application() {
+class CatApplication : Application() {
 
     companion object {
         private var _dataBase: MainDataBase? = null

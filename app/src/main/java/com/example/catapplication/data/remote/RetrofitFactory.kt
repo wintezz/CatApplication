@@ -3,7 +3,7 @@ package com.example.catapplication.data.remote
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitFactory {
     companion object {
@@ -11,7 +11,7 @@ class RetrofitFactory {
             val baseURL = "https://api.thecatapi.com"
 
             return Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(OkHttpClient.Builder()
                     .addInterceptor(HttpLoggingInterceptor().apply {
                         setLevel(HttpLoggingInterceptor.Level.BODY)

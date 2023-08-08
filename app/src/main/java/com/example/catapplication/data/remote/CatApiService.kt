@@ -1,5 +1,6 @@
 package com.example.catapplication.data.remote
 
+import com.example.catapplication.data.remote.model.Cat
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -22,4 +23,3 @@ interface CatApiService {
         const val CAT_EXTRA = "cat_extra"
     }
 }
-

@@ -1,13 +1,13 @@
 package com.example.catapplication.data.db.repository
 
-import com.example.catapplication.MainApp
+import com.example.catapplication.CatApplication
 import com.example.catapplication.data.db.entityes.FavoriteItem
 import com.example.catapplication.domain.models.CatUiModel
 import kotlinx.coroutines.flow.Flow
 
 object FavoriteRepository {
 
-    private val dao = MainApp.dataBase.getDao()
+    private val dao = CatApplication.dataBase.getDao()
 
     fun addFavorite(catUiModel: CatUiModel) {
         dao.insertFavorite(

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">CatApplication</string>
-    <string name="back_to_list">back to list</string>
     <string name="save">Save</string>
     <string name="favorites">Favorites</string>
-    <string name="save_to_gallery">Save to gallery</string>
 </resources>

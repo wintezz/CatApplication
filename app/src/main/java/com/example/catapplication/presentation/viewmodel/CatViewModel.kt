@@ -1,4 +1,4 @@
-package com.example.catapplication.presentation.model
+package com.example.catapplication.presentation.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.PagingData
@@ -45,7 +45,7 @@ class CatViewModel(database: MainDataBase) : ViewModel() {
     }
 
     class MainViewModelFactory(private val database: MainDataBase) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CatViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return CatViewModel(database) as T
@@ -56,9 +56,6 @@ class CatViewModel(database: MainDataBase) : ViewModel() {
 
     sealed class Navigate {
         class ToDetail(val cat: CatUiModel) : Navigate()
-        class Back() : Navigate()
+        class Back : Navigate()
     }
 }
-
-
-

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.catapplication.R
+import com.example.catApllication.R
 import com.example.catapplication.domain.models.CatUiModel
 import com.example.catapplication.presentation.util.DiffUtilCallBack
 
@@ -31,9 +31,7 @@ class CatAdapter(
         }
     }
 
-    inner class CatViewHolder(
-        view: View
-    ) : RecyclerView.ViewHolder(view) {
+    inner class CatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val imageView = view.findViewById<ImageView>(R.id.imageView)
         private var buttonFavorite = view.findViewById<ImageButton>(R.id.buttonFavorite)
@@ -45,5 +43,3 @@ class CatAdapter(
         }
     }
 }
-
-

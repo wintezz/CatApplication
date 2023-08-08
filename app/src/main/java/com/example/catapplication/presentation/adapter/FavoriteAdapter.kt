@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.catapplication.R
-import com.example.catapplication.databinding.CatItemBinding
+import com.example.catApllication.R
+import com.example.catApllication.databinding.CatItemBinding
 import com.example.catapplication.data.db.entityes.FavoriteItem
 import com.example.catapplication.presentation.util.DiffUtilFavoriteAdapter
 

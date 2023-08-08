@@ -17,37 +17,37 @@ import androidx.lifecycle.lifecycleScope
 import coil.Coil
 import coil.load
 import coil.request.ImageRequest
+import com.example.catApllication.databinding.FragmentCatInfoBinding
 import com.example.catapplication.data.remote.CatApiService.Companion.CAT_EXTRA
-import com.example.catapplication.databinding.FragmentCatInfoBinding
 import com.example.catapplication.domain.models.CatUiModel
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class CatInfoFragment : Fragment() {
+class SecondFragment : Fragment() {
 
     private val cat: CatUiModel? by lazy { arguments?.getParcelable(CAT_EXTRA) }
-    private var binding: FragmentCatInfoBinding? = null
-    private val catBinding get() = binding!!
+    private var _binding: FragmentCatInfoBinding? = null
+    private val binding
+        get() = _binding ?: throw Throwable("SecondFragment binding is not initialized")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCatInfoBinding.inflate(inflater, container, false)
-        return catBinding.root
+        _binding = FragmentCatInfoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(catBinding) {
+        with(binding) {
             cat?.let { cat ->
                 imageCat.load(cat.imageUrl)
                 saveCatButton.setOnClickListener { getImageAndSave(cat.imageUrl) }
-                backInGalleryButton.setOnClickListener { activity?.onBackPressed() }
             }
         }
     }
@@ -99,14 +99,14 @@ class CatInfoFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        binding = null
+        _binding = null
         super.onDestroyView()
     }
 
     companion object {
         @JvmStatic
         fun newInstance(cat: CatUiModel) =
-            CatInfoFragment().apply {
+            SecondFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(CAT_EXTRA, cat)
                 }

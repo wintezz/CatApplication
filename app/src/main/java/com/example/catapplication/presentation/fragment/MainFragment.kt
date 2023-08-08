@@ -9,20 +9,22 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.catapplication.MainApp
-import com.example.catapplication.R
-import com.example.catapplication.databinding.FragmentMainBinding
+import com.example.catApllication.R
+import com.example.catApllication.databinding.FragmentMainBinding
+import com.example.catapplication.CatApplication
 import com.example.catapplication.presentation.adapter.CatAdapter
-import com.example.catapplication.presentation.model.CatViewModel
+import com.example.catapplication.presentation.viewmodel.CatViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
-    private var binding: FragmentMainBinding? = null
-    private val catBinding get() = binding!!
+    private var _binding: FragmentMainBinding? = null
+    private val binding
+        get() = _binding ?: throw Throwable("MainFragment binding is not initialized")
+
     private val catViewModel: CatViewModel by activityViewModels {
-        CatViewModel.MainViewModelFactory(MainApp.dataBase)
+        CatViewModel.MainViewModelFactory(CatApplication.dataBase)
     }
 
     override fun onCreateView(
@@ -30,7 +32,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(
+        _binding = FragmentMainBinding.inflate(
             inflater, container, false
         )
 
@@ -45,7 +47,7 @@ class MainFragment : Fragment() {
         initAdapter(itemAdapter)
         initObservers()
 
-        return catBinding.root
+        return binding.root
     }
 
     private fun initObservers() {
@@ -59,9 +61,10 @@ class MainFragment : Fragment() {
                     .addToBackStack(null)
                     .replace(
                         R.id.fragmentContainer,
-                        CatInfoFragment.newInstance(it.cat)
+                        SecondFragment.newInstance(it.cat)
                     )
                     .commit()
+
                 is CatViewModel.Navigate.Back -> TODO()
             }
         }
@@ -76,21 +79,21 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerView(itemAdapter: CatAdapter) {
-        catBinding.recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
     override fun onDestroyView() {
-        binding = null
+        _binding = null
         super.onDestroyView()
     }
 
     companion object {
         @JvmStatic
         fun newInstance(listCat: ArrayList<String>) =
-            CatInfoFragment().apply {
+            SecondFragment().apply {
                 arguments = Bundle().apply {
                     putStringArrayList("listCat", listCat)
                 }
