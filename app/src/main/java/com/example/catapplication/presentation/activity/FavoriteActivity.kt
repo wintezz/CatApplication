@@ -5,20 +5,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catApllication.databinding.ActivitySecondBinding
-import com.example.catapplication.CatApplication
 import com.example.catapplication.presentation.adapter.FavoriteAdapter
 import com.example.catapplication.presentation.viewmodel.CatViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class SecondActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class FavoriteActivity : AppCompatActivity() {
 
-    private lateinit var adapter: FavoriteAdapter
+    private val favoriteAdapter = FavoriteAdapter()
+
     private var _binding: ActivitySecondBinding? = null
     private val binding
         get() = _binding ?: throw Throwable("SecondActivity binding is not initialized")
 
-    private val catViewModel: CatViewModel by viewModels {
-        CatViewModel.MainViewModelFactory(CatApplication.dataBase)
-    }
+    private val catViewModel: CatViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +29,16 @@ class SecondActivity : AppCompatActivity() {
         observer()
     }
 
-    private fun initRecyclerView() = with(binding) {
-        recyclerFavorite.layoutManager = LinearLayoutManager(this@SecondActivity)
-        adapter = FavoriteAdapter()
-        recyclerFavorite.adapter = adapter
+    private fun initRecyclerView() {
+        binding.recyclerFavorite.apply {
+            layoutManager = LinearLayoutManager(this@FavoriteActivity)
+            adapter = favoriteAdapter
+        }
     }
 
     private fun observer() {
         catViewModel.getFavoriteItem.observe(this) {
-            adapter.submitList(it)
+            favoriteAdapter.submitList(it)
         }
     }
 

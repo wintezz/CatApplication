@@ -1,12 +1,10 @@
-package com.example.catapplication.data.remote
+package com.example.catapplication.data.remote.retrofit
 
 import com.example.catapplication.data.remote.model.Cat
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface CatApiService {
-    @Headers("x-api-key: $API_KEY")
+interface ApiService {
     @GET("/v1/images/search")
     suspend fun getListOfCats(
         @Query("limit") limit: Int = DEFAULT_PAGE_SIZE,
@@ -18,8 +16,7 @@ interface CatApiService {
     companion object {
         const val DEFAULT_PAGE_SIZE = 10
         const val API_KEY = "8cc12c9e-a406-4489-a189-0ef201b10714"
-        const val CAT_URL = "url"
-        const val CAT_ID = "id"
         const val CAT_EXTRA = "cat_extra"
+        const val BASE_URL = "https://api.thecatapi.com"
     }
 }

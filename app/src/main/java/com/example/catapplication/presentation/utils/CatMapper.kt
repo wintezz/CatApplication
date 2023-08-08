@@ -1,7 +1,7 @@
-package com.example.catapplication.domain
+package com.example.catapplication.presentation.utils
 
 import com.example.catapplication.data.remote.model.Cat
-import com.example.catapplication.domain.models.CatUiModel
+import com.example.catapplication.presentation.model.CatUiModel
 
 fun Cat.toUiModel(): CatUiModel? {
     return if (id != null && imageUrl != null) {

@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 data class FavoriteItem(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int?,
+    val id: Int? = null,
     @ColumnInfo(name = "url_image")
-    val image: String,
+    val image: String? = null,
     @ColumnInfo(name = "cat_id")
-    val catId: String
+    val catId: String? = null
 )

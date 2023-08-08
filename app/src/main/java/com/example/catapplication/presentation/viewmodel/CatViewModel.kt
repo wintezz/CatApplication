@@ -1,20 +1,25 @@
 package com.example.catapplication.presentation.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.catapplication.data.db.MainDataBase
 import com.example.catapplication.data.db.entityes.FavoriteItem
-import com.example.catapplication.data.remote.repository.CatRepository
 import com.example.catapplication.data.db.repository.FavoriteRepository
-import com.example.catapplication.domain.models.CatUiModel
+import com.example.catapplication.data.remote.repository.Repository
+import com.example.catapplication.presentation.model.CatUiModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CatViewModel(database: MainDataBase) : ViewModel() {
+@HiltViewModel
+class CatViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val repository = CatRepository
     private val repositoryFavorite = FavoriteRepository
 
     val catList: Flow<PagingData<CatUiModel>> by lazy {
@@ -43,19 +48,8 @@ class CatViewModel(database: MainDataBase) : ViewModel() {
             } ?: repositoryFavorite.addFavorite(cat)
         }
     }
+}
 
-    class MainViewModelFactory(private val database: MainDataBase) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(CatViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return CatViewModel(database) as T
-            }
-            throw IllegalArgumentException("Unknowns ViewModelClass")
-        }
-    }
-
-    sealed class Navigate {
-        class ToDetail(val cat: CatUiModel) : Navigate()
-        class Back : Navigate()
-    }
+sealed class Navigate {
+    data class ToDetail(val cat: CatUiModel) : Navigate()
 }

@@ -2,7 +2,9 @@ package com.example.catapplication
 
 import android.app.Application
 import com.example.catapplication.data.db.MainDataBase
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class CatApplication : Application() {
 
     companion object {

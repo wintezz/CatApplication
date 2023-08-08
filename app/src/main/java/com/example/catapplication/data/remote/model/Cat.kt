@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Cat(
     @SerializedName("id")
-    val id: String?,
+    val id: String? = null,
     @SerializedName("url")
-    val imageUrl: String?
+    val imageUrl: String? = null
 )

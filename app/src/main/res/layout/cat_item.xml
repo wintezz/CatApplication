@@ -4,16 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="@dimen/layout_height">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/main_margin"
         app:cardBackgroundColor="@color/purple_200"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="@dimen/corner_radius">
 
         <ImageView
             android:id="@+id/imageView"
@@ -27,12 +27,10 @@
 
         <ImageButton
             android:id="@+id/buttonFavorite"
-            android:layout_width="54dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="290dp"
-            android:layout_marginTop="37dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginEnd="0dp"
+            android:layout_width="@dimen/size_heart"
+            android:layout_height="@dimen/size_heart"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:layout_gravity="center|end"
             android:background="@null"
             app:srcCompat="@drawable/ic_base_favorite_24"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />

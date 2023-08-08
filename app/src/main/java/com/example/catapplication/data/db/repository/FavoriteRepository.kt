@@ -2,7 +2,7 @@ package com.example.catapplication.data.db.repository
 
 import com.example.catapplication.CatApplication
 import com.example.catapplication.data.db.entityes.FavoriteItem
-import com.example.catapplication.domain.models.CatUiModel
+import com.example.catapplication.presentation.model.CatUiModel
 import kotlinx.coroutines.flow.Flow
 
 object FavoriteRepository {
@@ -26,5 +26,4 @@ object FavoriteRepository {
     fun getAll(): Flow<List<FavoriteItem>> {
         return dao.getAllFavoriteItems()
     }
-
 }

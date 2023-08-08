@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.catApllication.R
 import com.example.catApllication.databinding.ActivityMainBinding
 import com.example.catapplication.presentation.fragment.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.id_save -> {
                 MainFragment.newInstance(listCat = ArrayList())
-                val start = Intent(this, SecondActivity::class.java)
+                val start = Intent(this, FavoriteActivity::class.java)
                 startActivity(start)
             }
 

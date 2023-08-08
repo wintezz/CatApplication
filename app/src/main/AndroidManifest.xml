@@ -4,9 +4,6 @@
     package="com.example.catapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
 
     <application
         android:name="com.example.catapplication.CatApplication"
@@ -16,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CatApplication"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="31">
+
         <activity
-            android:name=".presentation.activity.SecondActivity"
+            android:name=".presentation.activity.FavoriteActivity"
             android:exported="false" />
         <activity
             android:name="com.example.catapplication.presentation.activity.MainActivity"

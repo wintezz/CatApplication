@@ -1,19 +1,20 @@
-package com.example.catapplication.domain
+package com.example.catapplication.data.remote.retrofit
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.catapplication.data.remote.CatApiService
-import com.example.catapplication.domain.models.CatUiModel
+import com.example.catapplication.presentation.model.CatUiModel
+import com.example.catapplication.presentation.utils.toUiModel
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
-class CatPaging(
-    private val myBackend: CatApiService,
+class CatPaging @Inject constructor(
+    private val apiService: ApiService,
 ) : PagingSource<Int, CatUiModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CatUiModel> = try {
 
         val pageNumber = params.key ?: 0
-        val response = myBackend.getListOfCats(page = pageNumber)
+        val response = apiService.getListOfCats(page = pageNumber)
 
         val prevKey = if (pageNumber > 0) pageNumber - 1 else null
         val nextKey = if (response.isNotEmpty()) pageNumber + 1 else null

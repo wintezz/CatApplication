@@ -5,27 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.catApllication.R
 import com.example.catApllication.databinding.FragmentMainBinding
-import com.example.catapplication.CatApplication
 import com.example.catapplication.presentation.adapter.CatAdapter
 import com.example.catapplication.presentation.viewmodel.CatViewModel
+import com.example.catapplication.presentation.viewmodel.Navigate
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding
         get() = _binding ?: throw Throwable("MainFragment binding is not initialized")
 
-    private val catViewModel: CatViewModel by activityViewModels {
-        CatViewModel.MainViewModelFactory(CatApplication.dataBase)
-    }
+    private val catViewModel: CatViewModel by viewModels()
+
+    private val catAdapter = CatAdapter(
+        clickListener = { catViewModel.onItemClick(it) },
+        favoriteClickListener = { catViewModel.onFavoriteItemClick(it) }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,53 +40,15 @@ class MainFragment : Fragment() {
             inflater, container, false
         )
 
-        val itemAdapter = CatAdapter(
-            clickListener = { catViewModel.onItemClick(it) },
-            favoriteClickListener = { catViewModel.onFavoriteItemClick(it) }
-        )
-
-        itemAdapter.stateRestorationPolicy =
-            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        initRecyclerView(itemAdapter)
-        initAdapter(itemAdapter)
-        initObservers()
-
         return binding.root
     }
 
-    private fun initObservers() {
-        catViewModel.navigate.observe(viewLifecycleOwner) {
-            when (it) {
-                is CatViewModel.Navigate.ToDetail -> parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.card_flip_left_in,
-                        R.anim.card_flip_left_out
-                    )
-                    .addToBackStack(null)
-                    .replace(
-                        R.id.fragmentContainer,
-                        SecondFragment.newInstance(it.cat)
-                    )
-                    .commit()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-                is CatViewModel.Navigate.Back -> TODO()
-            }
-        }
-    }
-
-    private fun initAdapter(itemAdapter: CatAdapter) {
-        lifecycleScope.launch {
-            catViewModel.catList.collectLatest {
-                itemAdapter.submitData(it)
-            }
-        }
-    }
-
-    private fun initRecyclerView(itemAdapter: CatAdapter) {
-        binding.recyclerView.apply {
-            adapter = itemAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
+        initObservers()
+        setupObserverCat()
+        initRecyclerView()
     }
 
     override fun onDestroyView() {
@@ -90,10 +56,43 @@ class MainFragment : Fragment() {
         super.onDestroyView()
     }
 
+    private fun initObservers() {
+        catViewModel.navigate.observe(viewLifecycleOwner) { item ->
+            when (item) {
+                is Navigate.ToDetail -> parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.card_flip_left_in,
+                        R.anim.card_flip_left_out
+                    )
+                    .addToBackStack("backStack")
+                    .replace(
+                        R.id.fragmentContainer,
+                        DetailFragment.newInstance(item.cat)
+                    )
+                    .commit()
+            }
+        }
+    }
+
+    private fun setupObserverCat() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            catViewModel.catList.collectLatest {
+                catAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = catAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(listCat: ArrayList<String>) =
-            SecondFragment().apply {
+            DetailFragment().apply {
                 arguments = Bundle().apply {
                     putStringArrayList("listCat", listCat)
                 }

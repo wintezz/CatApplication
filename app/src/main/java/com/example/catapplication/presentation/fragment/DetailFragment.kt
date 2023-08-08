@@ -18,14 +18,16 @@ import coil.Coil
 import coil.load
 import coil.request.ImageRequest
 import com.example.catApllication.databinding.FragmentCatInfoBinding
-import com.example.catapplication.data.remote.CatApiService.Companion.CAT_EXTRA
-import com.example.catapplication.domain.models.CatUiModel
+import com.example.catapplication.data.remote.retrofit.ApiService.Companion.CAT_EXTRA
+import com.example.catapplication.presentation.model.CatUiModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class SecondFragment : Fragment() {
+@AndroidEntryPoint
+class DetailFragment : Fragment() {
 
     private val cat: CatUiModel? by lazy { arguments?.getParcelable(CAT_EXTRA) }
     private var _binding: FragmentCatInfoBinding? = null
@@ -38,6 +40,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCatInfoBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -47,12 +50,17 @@ class SecondFragment : Fragment() {
         with(binding) {
             cat?.let { cat ->
                 imageCat.load(cat.imageUrl)
-                saveCatButton.setOnClickListener { getImageAndSave(cat.imageUrl) }
+                saveCatButton.setOnClickListener { cat.imageUrl?.let { it1 -> getImageAndSave(it1) } }
             }
         }
     }
 
-    private fun getImageAndSave(bitmapURL: String) = lifecycleScope.launch {
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+    private fun getImageAndSave(bitmapURL: String) = viewLifecycleOwner.lifecycleScope.launch {
         val imageLoader = Coil.imageLoader(requireContext())
         val request = ImageRequest.Builder(requireContext())
             .data(bitmapURL)
@@ -98,15 +106,10 @@ class SecondFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
     companion object {
         @JvmStatic
         fun newInstance(cat: CatUiModel) =
-            SecondFragment().apply {
+            DetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(CAT_EXTRA, cat)
                 }
