@@ -47,17 +47,21 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            cat?.let { cat ->
-                imageCat.load(cat.imageUrl)
-                saveCatButton.setOnClickListener { cat.imageUrl?.let { it1 -> getImageAndSave(it1) } }
-            }
-        }
+        onItemClickSave()
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun onItemClickSave() {
+        with(binding) {
+            cat?.let { cat ->
+                imageCat.load(cat.imageUrl)
+                saveCatButton.setOnClickListener { cat.imageUrl?.let { getImageAndSave(it) } }
+            }
+        }
     }
 
     private fun getImageAndSave(bitmapURL: String) = viewLifecycleOwner.lifecycleScope.launch {

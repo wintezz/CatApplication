@@ -27,9 +27,7 @@ class CatAdapter(
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
-        getItem(position)?.let { item ->
-            holder.bind(item)
-        }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     inner class CatViewHolder(private val binding: CatItemBinding) :

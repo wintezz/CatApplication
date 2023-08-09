@@ -31,7 +31,7 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         binding.recyclerFavorite.apply {
-            layoutManager = LinearLayoutManager(this@FavoriteActivity)
+            layoutManager = LinearLayoutManager(context)
             adapter = favoriteAdapter
         }
     }

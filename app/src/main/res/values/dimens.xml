@@ -4,4 +4,5 @@
     <dimen name="corner_radius">10dp</dimen>
     <dimen name="layout_height">250dp</dimen>
     <dimen name="size_heart">55dp</dimen>
+    <dimen name="margin_bottom">55dp</dimen>
 </resources>

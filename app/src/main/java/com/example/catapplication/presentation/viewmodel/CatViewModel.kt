@@ -1,7 +1,6 @@
 package com.example.catapplication.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -26,18 +25,7 @@ class CatViewModel @Inject constructor(private val repository: Repository) : Vie
         repository.getCats().cachedIn(viewModelScope)
     }
 
-    private val _navigate = MutableLiveData<Navigate>()
-    val navigate: LiveData<Navigate> = _navigate
-
     val getFavoriteItem: LiveData<List<FavoriteItem>> = repositoryFavorite.getAll().asLiveData()
-
-    fun onItemClick(cat: CatUiModel) {
-        _navigate.value = Navigate.ToDetail(cat)
-    }
-
-    init {
-        getFavoriteItem.value
-    }
 
     fun onFavoriteItemClick(cat: CatUiModel) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -48,8 +36,4 @@ class CatViewModel @Inject constructor(private val repository: Repository) : Vie
             } ?: repositoryFavorite.addFavorite(cat)
         }
     }
-}
-
-sealed class Navigate {
-    data class ToDetail(val cat: CatUiModel) : Navigate()
 }

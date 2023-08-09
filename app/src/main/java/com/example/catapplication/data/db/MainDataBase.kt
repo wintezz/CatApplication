@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.catapplication.data.db.entityes.FavoriteItem
 
-@Database(entities = [FavoriteItem::class], version = 1)
+@Database(entities = [FavoriteItem::class], version = 4)
 abstract class MainDataBase : RoomDatabase() {
     abstract fun getDao(): Dao
 
@@ -19,7 +19,8 @@ abstract class MainDataBase : RoomDatabase() {
                     context.applicationContext,
                     MainDataBase::class.java,
                     "favorite_list.db"
-                ).build()
+                )
+                    .build()
                 instance
             }
         }

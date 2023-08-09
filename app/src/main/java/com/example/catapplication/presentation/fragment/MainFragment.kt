@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catApllication.R
 import com.example.catApllication.databinding.FragmentMainBinding
 import com.example.catapplication.presentation.adapter.CatAdapter
+import com.example.catapplication.presentation.model.CatUiModel
 import com.example.catapplication.presentation.viewmodel.CatViewModel
-import com.example.catapplication.presentation.viewmodel.Navigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
     private val catViewModel: CatViewModel by viewModels()
 
     private val catAdapter = CatAdapter(
-        clickListener = { catViewModel.onItemClick(it) },
+        clickListener = ::initObservers,
         favoriteClickListener = { catViewModel.onFavoriteItemClick(it) }
     )
 
@@ -46,7 +46,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObservers()
         setupObserverCat()
         initRecyclerView()
     }
@@ -56,22 +55,18 @@ class MainFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun initObservers() {
-        catViewModel.navigate.observe(viewLifecycleOwner) { item ->
-            when (item) {
-                is Navigate.ToDetail -> parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.card_flip_left_in,
-                        R.anim.card_flip_left_out
-                    )
-                    .addToBackStack("backStack")
-                    .replace(
-                        R.id.fragmentContainer,
-                        DetailFragment.newInstance(item.cat)
-                    )
-                    .commit()
-            }
-        }
+    private fun initObservers(item: CatUiModel) {
+        parentFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.card_flip_left_in,
+                R.anim.card_flip_left_out
+            )
+            .addToBackStack("backStack")
+            .replace(
+                R.id.fragmentContainer,
+                DetailFragment.newInstance(item)
+            )
+            .commit()
     }
 
     private fun setupObserverCat() {
@@ -85,7 +80,7 @@ class MainFragment : Fragment() {
     private fun initRecyclerView() {
         binding.recyclerView.apply {
             adapter = catAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(context)
         }
     }
 

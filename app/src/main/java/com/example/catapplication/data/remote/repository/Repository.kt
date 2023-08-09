@@ -6,6 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface Repository {
-
     fun getCats(): Flow<PagingData<CatUiModel>>
 }
