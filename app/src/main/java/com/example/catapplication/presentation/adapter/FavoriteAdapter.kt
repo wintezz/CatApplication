@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.catApllication.databinding.CatItemBinding
-import com.example.catapplication.data.db.entityes.FavoriteItem
+import com.example.catapplication.data.db.entity.FavoriteItem
 
 class FavoriteAdapter :
     ListAdapter<FavoriteItem, FavoriteAdapter.FavoriteViewHolder>(diffCallBack) {

@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.catapplication.data.db.entityes.FavoriteItem
+import com.example.catapplication.data.db.entity.FavoriteItem
 import com.example.catapplication.data.db.repository.FavoriteRepository
 import com.example.catapplication.data.remote.repository.Repository
 import com.example.catapplication.presentation.model.CatUiModel
@@ -17,23 +17,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CatViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-
-    private val repositoryFavorite = FavoriteRepository
+class CatViewModel @Inject constructor(
+    private val repository: Repository,
+    private val repositoryFavorite: FavoriteRepository
+) : ViewModel() {
 
     val catList: Flow<PagingData<CatUiModel>> by lazy {
         repository.getCats().cachedIn(viewModelScope)
     }
 
-    val getFavoriteItem: LiveData<List<FavoriteItem>> = repositoryFavorite.getAll().asLiveData()
+    val getFavoriteItem: LiveData<List<FavoriteItem>> = repositoryFavorite.getAllItems().asLiveData()
 
     fun onFavoriteItemClick(cat: CatUiModel) {
         viewModelScope.launch(Dispatchers.IO) {
             getFavoriteItem.value?.let { items ->
                 items.firstOrNull { it.catId == cat.id }?.let { favoriteItem ->
-                    repositoryFavorite.removeFavorite(favoriteItem)
-                } ?: repositoryFavorite.addFavorite(cat)
-            } ?: repositoryFavorite.addFavorite(cat)
+                    repositoryFavorite.deleteItem(favoriteItem)
+                } ?: repositoryFavorite.addItem(cat)
+            } ?: repositoryFavorite.addItem(cat)
         }
     }
 }
