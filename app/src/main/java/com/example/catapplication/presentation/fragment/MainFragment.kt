@@ -1,9 +1,11 @@
 package com.example.catapplication.presentation.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,12 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catApllication.R
 import com.example.catApllication.databinding.FragmentMainBinding
 import com.example.catapplication.presentation.adapter.CatAdapter
-import com.example.catapplication.presentation.model.CatUiModel
+import com.example.catapplication.presentation.model.CatModel
 import com.example.catapplication.presentation.viewmodel.CatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
@@ -39,7 +42,6 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(
             inflater, container, false
         )
-
         return binding.root
     }
 
@@ -55,7 +57,7 @@ class MainFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun initObservers(item: CatUiModel) {
+    private fun initObservers(item: CatModel) {
         parentFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.card_flip_left_in,
@@ -78,9 +80,10 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        binding.recyclerView.apply {
-            adapter = catAdapter
-            layoutManager = LinearLayoutManager(context)
+        with(binding) {
+            recyclerView
+            recyclerView.adapter = catAdapter
+            recyclerView.layoutManager = LinearLayoutManager(context)
         }
     }
 

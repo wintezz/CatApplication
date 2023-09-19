@@ -2,7 +2,7 @@ package com.example.catapplication.data.db.repository
 
 import com.example.catapplication.data.db.Dao
 import com.example.catapplication.data.db.entity.FavoriteItem
-import com.example.catapplication.presentation.model.CatUiModel
+import com.example.catapplication.presentation.model.CatModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -14,12 +14,12 @@ class FavoriteRepositoryImpl @Inject constructor(
         return dao.getAllItems()
     }
 
-    override fun addItem(catUiModel: CatUiModel) {
+    override fun addItem(catModel: CatModel) {
         dao.addItem(
             FavoriteItem(
                 id = null,
-                image = catUiModel.imageUrl,
-                catId = catUiModel.id
+                image = catModel.imageUrl,
+                catId = catModel.id
             )
         )
     }

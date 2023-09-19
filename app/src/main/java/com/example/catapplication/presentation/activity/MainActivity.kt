@@ -1,16 +1,20 @@
 package com.example.catapplication.presentation.activity
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.catApllication.R
 import com.example.catApllication.databinding.ActivityMainBinding
 import com.example.catapplication.presentation.fragment.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.id_save -> {
                 MainFragment.newInstance(listCat = ArrayList())
-                val start = Intent(this, FavoriteActivity::class.java)
+                val start = Intent(applicationContext, FavoriteActivity::class.java)
                 startActivity(start)
             }
 

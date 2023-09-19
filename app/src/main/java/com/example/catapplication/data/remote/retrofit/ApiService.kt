@@ -14,9 +14,9 @@ interface ApiService {
     ): List<Cat>
 
     companion object {
+        const val CAT_EXTRA = "cat_extra"
         const val DEFAULT_PAGE_SIZE = 10
         const val API_KEY = "8cc12c9e-a406-4489-a189-0ef201b10714"
-        const val CAT_EXTRA = "cat_extra"
         const val BASE_URL = "https://api.thecatapi.com"
     }
 }

@@ -29,10 +29,15 @@ class FavoriteActivity : AppCompatActivity() {
         observer()
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
     private fun initRecyclerView() {
-        binding.recyclerFavorite.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = favoriteAdapter
+        with(binding) {
+            recyclerFavorite.layoutManager = LinearLayoutManager(applicationContext)
+            recyclerFavorite.adapter = favoriteAdapter
         }
     }
 
@@ -40,10 +45,5 @@ class FavoriteActivity : AppCompatActivity() {
         catViewModel.getFavoriteItem.observe(this) {
             favoriteAdapter.submitList(it)
         }
-    }
-
-    override fun onDestroy() {
-        _binding = null
-        super.onDestroy()
     }
 }

@@ -9,7 +9,7 @@ import androidx.paging.cachedIn
 import com.example.catapplication.data.db.entity.FavoriteItem
 import com.example.catapplication.data.db.repository.FavoriteRepository
 import com.example.catapplication.data.remote.repository.Repository
-import com.example.catapplication.presentation.model.CatUiModel
+import com.example.catapplication.presentation.model.CatModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -22,13 +22,13 @@ class CatViewModel @Inject constructor(
     private val repositoryFavorite: FavoriteRepository
 ) : ViewModel() {
 
-    val catList: Flow<PagingData<CatUiModel>> by lazy {
+    val catList: Flow<PagingData<CatModel>> by lazy {
         repository.getCats().cachedIn(viewModelScope)
     }
 
     val getFavoriteItem: LiveData<List<FavoriteItem>> = repositoryFavorite.getAllItems().asLiveData()
 
-    fun onFavoriteItemClick(cat: CatUiModel) {
+    fun onFavoriteItemClick(cat: CatModel) {
         viewModelScope.launch(Dispatchers.IO) {
             getFavoriteItem.value?.let { items ->
                 items.firstOrNull { it.catId == cat.id }?.let { favoriteItem ->
@@ -38,3 +38,4 @@ class CatViewModel @Inject constructor(
         }
     }
 }
+class MainState

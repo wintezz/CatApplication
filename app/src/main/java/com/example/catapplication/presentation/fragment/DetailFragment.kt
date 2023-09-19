@@ -12,25 +12,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import coil.Coil
-import coil.load
 import coil.request.ImageRequest
-import com.example.catApllication.databinding.FragmentCatInfoBinding
+import com.example.catApllication.databinding.FragmentDetailBinding
 import com.example.catapplication.data.remote.retrofit.ApiService.Companion.CAT_EXTRA
-import com.example.catapplication.presentation.model.CatUiModel
+import com.example.catapplication.presentation.model.CatModel
+import com.example.catapplication.presentation.utils.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
-    private val cat: CatUiModel? by lazy { arguments?.getParcelable(CAT_EXTRA) }
-    private var _binding: FragmentCatInfoBinding? = null
+    private lateinit var composeView: ComposeView
+    private val cat: CatModel? by lazy {
+        arguments?.getParcelable(
+            CAT_EXTRA,
+            CatModel::class.java
+        )
+    }
+    private var _binding: FragmentDetailBinding? = null
     private val binding
         get() = _binding ?: throw Throwable("SecondFragment binding is not initialized")
 
@@ -39,7 +49,7 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCatInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -58,7 +68,7 @@ class DetailFragment : Fragment() {
     private fun onItemClickSave() {
         with(binding) {
             cat?.let { cat ->
-                imageCat.load(cat.imageUrl)
+                cat.imageUrl?.let { imageCat.load(it) }
                 saveCatButton.setOnClickListener { cat.imageUrl?.let { getImageAndSave(it) } }
             }
         }
@@ -112,7 +122,7 @@ class DetailFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(cat: CatUiModel) =
+        fun newInstance(cat: CatModel) =
             DetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(CAT_EXTRA, cat)

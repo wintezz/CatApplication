@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.catApllication.databinding.CatItemBinding
-import com.example.catapplication.presentation.model.CatUiModel
+import com.example.catapplication.presentation.model.CatModel
 
 class CatAdapter(
-    private val clickListener: (CatUiModel) -> Unit,
-    private val favoriteClickListener: (CatUiModel) -> Unit,
-) : PagingDataAdapter<CatUiModel, CatAdapter.CatViewHolder>(diffCallBack) {
+    private val clickListener: (CatModel) -> Unit,
+    private val favoriteClickListener: (CatModel) -> Unit,
+) : PagingDataAdapter<CatModel, CatAdapter.CatViewHolder>(diffCallBack) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -33,7 +33,7 @@ class CatAdapter(
     inner class CatViewHolder(private val binding: CatItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: CatUiModel) {
+        fun bind(data: CatModel) {
             binding.imageView.load(data.imageUrl)
 
             itemView.setOnClickListener {
@@ -48,13 +48,13 @@ class CatAdapter(
 
     companion object {
 
-        private val diffCallBack = object : DiffUtil.ItemCallback<CatUiModel>() {
+        private val diffCallBack = object : DiffUtil.ItemCallback<CatModel>() {
 
-            override fun areItemsTheSame(oldItem: CatUiModel, newItem: CatUiModel): Boolean {
+            override fun areItemsTheSame(oldItem: CatModel, newItem: CatModel): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: CatUiModel, newItem: CatUiModel): Boolean {
+            override fun areContentsTheSame(oldItem: CatModel, newItem: CatModel): Boolean {
                 return oldItem.id == newItem.id &&
                         oldItem.imageUrl == newItem.imageUrl
             }
